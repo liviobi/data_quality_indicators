@@ -4,13 +4,9 @@ package de.uni_stuttgart.gsame.main;
 
 import opennlp.tools.chunker.ChunkerME;
 import opennlp.tools.chunker.ChunkerModel;
-import opennlp.tools.cmdline.parser.ParserTool;
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;
-import opennlp.tools.parser.Parse;
-import opennlp.tools.parser.ParserFactory;
 import opennlp.tools.parser.ParserModel;
-import opennlp.tools.parser.chunking.Parser;
 import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
 import opennlp.tools.tokenize.Tokenizer;
@@ -34,10 +30,6 @@ public class ConfidencesParsable2 {
   public static void main(String[] args) throws Exception {
 	//store sentences in descriptions
 	ArrayList<String> descriptions = new ArrayList<String>();
-	//descriptions.add("This is an example sentence to analyze.");
-	//descriptions.add("Thisss is n e+++-mple sntence to an.-ze.");
-
-	System.out.println(args[0]);
 
 	try {
 		File file = new File(args[0]);
@@ -55,7 +47,7 @@ public class ConfidencesParsable2 {
 		}
 		myReader.close();
 	  } catch (FileNotFoundException e) {
-		System.out.println("An error occurred.");
+		//System.out.println("An error occurred.");
 		e.printStackTrace();
 	  }
 	    
@@ -73,13 +65,8 @@ public class ConfidencesParsable2 {
 	  
 	  
 	  
-	  // use models from http://opennlp.sourceforge.net/models-1.5/ 
-	  //System.out.println("Loading Models ...");
-	  
 	  
 	  InputStream modelIn = new FileInputStream("models/en-token.bin");
-	  //uncomment and use german models if needed
-	 // InputStream modelIn = new FileInputStream("models/de-token.bin");
 	  
 	 TokenizerModel model = null;
 	  try {
@@ -267,7 +254,7 @@ public class ConfidencesParsable2 {
 
 	  double parsedSenteces = 1 - (numUncompleteParses/descriptions.size());
 	  
-	  System.out.println();
+	  //System.out.println();
 	  //System.out.println("Number of sentences:" + "\t" + descriptions.size());
 	  //System.out.println("Number of incomplete parses:" + "\t" + numUncompleteParses);
 	  // System.out.println("Probability of best parse:" + "\t" + averageP);
