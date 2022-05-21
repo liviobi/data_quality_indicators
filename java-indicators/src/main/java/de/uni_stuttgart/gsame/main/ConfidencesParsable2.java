@@ -29,7 +29,7 @@ import java.util.Scanner;
 
 
 
-public class ConfidencesParsable {
+public class ConfidencesParsable2 {
 
   public static void main(String[] args) throws Exception {
 	//store sentences in descriptions
@@ -37,9 +37,10 @@ public class ConfidencesParsable {
 	//descriptions.add("This is an example sentence to analyze.");
 	//descriptions.add("Thisss is n e+++-mple sntence to an.-ze.");
 
+	System.out.println(args[0]);
 
 	try {
-		File file = new File("C:/Users/lbiondo/Desktop/data_quality_indicators/java-indicators/src/main/java/de/uni_stuttgart/gsame/main/prose.txt");
+		File file = new File(args[0]);
 		Scanner myReader = new Scanner(file);
 		while (myReader.hasNextLine()) {
 		  String line = myReader.nextLine();
@@ -267,17 +268,26 @@ public class ConfidencesParsable {
 	  double parsedSenteces = 1 - (numUncompleteParses/descriptions.size());
 	  
 	  System.out.println();
-	  System.out.println("Number of sentences:" + "\t" + descriptions.size());
-	  System.out.println("Number of incomplete parses:" + "\t" + numUncompleteParses);
+	  //System.out.println("Number of sentences:" + "\t" + descriptions.size());
+	  //System.out.println("Number of incomplete parses:" + "\t" + numUncompleteParses);
 	  // System.out.println("Probability of best parse:" + "\t" + averageP);
 	  //System.out.println("Probability of this tag sequence:" + "\t" + averageS);
 	
-	  System.out.println("Parsable sentences:" + "\t" + parsedSenteces);
-	  System.out.println("Confidence of Tokenizer:" + "\t" + averageT);
-	  System.out.println("Confidence of POS Tagger:" + "\t" + averagePOS);
-	  System.out.println("Confidence of NER:" + "\t" + averageNE);
-	  System.out.println("Confidence of Chunker:" + "\t" + averageCh);
+	  //System.out.println("Parsable sentences:" + "\t" + parsedSenteces);
+	  //System.out.println("Confidence of Tokenizer:" + "\t" + averageT);
+	  //System.out.println("Confidence of POS Tagger:" + "\t" + averagePOS);
+	  //System.out.println("Confidence of NER:" + "\t" + averageNE);
+	  //System.out.println("Confidence of Chunker:" + "\t" + averageCh);
 	  
+	  System.out.print(parsedSenteces);
+	  System.out.print(",");
+	  System.out.print(averageT);
+	  System.out.print(",");
+	  System.out.print(averagePOS);
+	  System.out.print(",");
+	  System.out.print(averageNE);
+	  System.out.print(",");
+	  System.out.print(averageCh);
   }
 }
 
