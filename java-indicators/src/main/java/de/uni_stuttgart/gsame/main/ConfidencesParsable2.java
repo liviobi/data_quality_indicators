@@ -266,15 +266,15 @@ public class ConfidencesParsable2 {
 	  //System.out.println("Confidence of NER:" + "\t" + averageNE);
 	  //System.out.println("Confidence of Chunker:" + "\t" + averageCh);
 	  
-	  System.out.print(parsedSenteces);
+	  System.out.print(parsedSenteces *100);
 	  System.out.print(",");
-	  System.out.print(averageT);
+	  System.out.print(averageT*100);
 	  System.out.print(",");
-	  System.out.print(averagePOS);
+	  System.out.print(averagePOS*100);
 	  System.out.print(",");
-	  System.out.print(averageNE);
+	  System.out.print(averageNE*100);
 	  System.out.print(",");
-	  System.out.print(averageCh);
+	  System.out.print(averageCh*100);
   }
 }
 
