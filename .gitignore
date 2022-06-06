@@ -130,4 +130,4 @@ dmypy.json
 
 spello_model/
 java-indicators/java-indicators.jar
-data/input/*
+data/*
