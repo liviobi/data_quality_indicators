@@ -1,7 +1,4 @@
 package de.uni_stuttgart.gsame.main;
-
-
-
 import opennlp.tools.chunker.ChunkerME;
 import opennlp.tools.chunker.ChunkerModel;
 import opennlp.tools.cmdline.parser.ParserTool;
@@ -39,7 +36,7 @@ public class ConfidencesParsable {
 
 
 	try {
-		File file = new File("C:/Users/lbiondo/Desktop/data_quality_indicators/java-indicators/src/main/java/de/uni_stuttgart/gsame/main/prose.txt");
+		File file = new File("C:/Users/lbiondo/Desktop/data_quality_indicators/data/corpora/test/ham_1140");
 		Scanner myReader = new Scanner(file);
 		while (myReader.hasNextLine()) {
 		  String line = myReader.nextLine();
@@ -75,10 +72,7 @@ public class ConfidencesParsable {
 	  // use models from http://opennlp.sourceforge.net/models-1.5/ 
 	  //System.out.println("Loading Models ...");
 	  
-	  
-	  InputStream modelIn = new FileInputStream("models/en-token.bin");
-	  //uncomment and use german models if needed
-	 // InputStream modelIn = new FileInputStream("models/de-token.bin");
+	InputStream modelIn = new FileInputStream("./java-indicators/models/en-token.bin");
 	  
 	 TokenizerModel model = null;
 	  try {
@@ -97,7 +91,7 @@ public class ConfidencesParsable {
 	    }
 	  }
 	  
-	  InputStream modelNE = new FileInputStream("models/en-ner-person.bin");
+	  InputStream modelNE = new FileInputStream("./java-indicators/models/en-ner-person.bin");
 	  TokenNameFinderModel model1 = null;
 
 	  try {
@@ -120,7 +114,7 @@ public class ConfidencesParsable {
 	  POSModel model2 = null;
 	  try {
 		//  modelTag = new FileInputStream("models/de-pos-maxent.bin");
-		  modelTag = new FileInputStream("models/en-pos-maxent.bin");
+		  modelTag = new FileInputStream("./java-indicators/models/en-pos-maxent.bin");
 	      model2 = new POSModel(modelTag);
 	  }
 	  catch (IOException e) {
@@ -141,7 +135,7 @@ public class ConfidencesParsable {
 	  ChunkerModel model3 = null;
   
 	  try {
-		    modelC = new FileInputStream("models/en-chunker.bin");
+		    modelC = new FileInputStream("./java-indicators/models/en-chunker.bin");
 	
 		    model3 = new ChunkerModel(modelC);
 		  } catch (IOException e) {
@@ -158,7 +152,7 @@ public class ConfidencesParsable {
 	  
 	 
 	  
-	  InputStream modelP = new FileInputStream("models/en-parser-chunking.bin");
+	  InputStream modelP = new FileInputStream("./java-indicators/models/en-parser-chunking.bin");
 	  ParserModel model4 = null;
 	 
 	  try {
@@ -180,7 +174,7 @@ public class ConfidencesParsable {
 	  //System.out.println("Starting calculations!");
 	  
 		  
-		  for(String sentence : descriptions){ //format of descriptions: one sentence per line			  	 	  
+		  for(String sentence : descriptions){ //format of descriptions: one sentence per line
 		
 			  Tokenizer tokenizer = new TokenizerME(model);
 			  String tokens[] = tokenizer.tokenize(sentence);  
@@ -221,28 +215,33 @@ public class ConfidencesParsable {
 			  double averageCh = sumCh / probsChunk.length;			  
 			  chunkProbs.add(averageCh);
 			 
-			  /*Parser parser = (Parser) ParserFactory.create(model4);
-			  Parse topParses[] = ParserTool.parseLine(sentence, parser, 1);		
+			  Parser parser = (Parser) ParserFactory.create(model4);
+			  if(sentence.length() > 1){
+				Parse topParses[] = ParserTool.parseLine(sentence, parser, 1);		
 			  
-			  for(Parse p : topParses){
-				  //p.show();
-				  double probParse = p.getProb();
-				  double probParseTagSequence = p.getTagSequenceProb();
-				  parseProbs.add(probParse);
-				  thisPosSequenceProbs.add(probParseTagSequence);
-				  if(!p.complete()){
-					  numUncompleteParses++;
-				  }
-				  
-
-			  }*/
+				for(Parse p : topParses){
+					//p.show();
+					double probParse = p.getProb();
+					double probParseTagSequence = p.getTagSequenceProb();
+					parseProbs.add(probParse);
+					thisPosSequenceProbs.add(probParseTagSequence);
+					if(!p.complete()){
+						numUncompleteParses++;
+					}
+				}
+			  }else{
+				numUncompleteParses++;
+			  }
+		
+			  
 		  }	  
 		  
 		    
 	  
 	  double sumT = 0;
-	  for (double d : tokenizerProbs) sumT += d;
+	  for (double d : tokenizerProbs)sumT += d;
 	  double averageT = sumT / tokenizerProbs.size();
+	  System.out.println(Double.toString(sumT));
 	  
 	  double sumPOS = 0;
 	  for (double d : posProbs) sumPOS += d;
@@ -264,7 +263,7 @@ public class ConfidencesParsable {
 	  for (double d : thisPosSequenceProbs) sumS += d;
 	  double averageS = sumS / thisPosSequenceProbs.size();
 
-	  double parsedSenteces = 1 - (numUncompleteParses/descriptions.size());
+	  double parsedSenteces = 1 - ((double)numUncompleteParses/descriptions.size());
 	  
 	  System.out.println();
 	  System.out.println("Number of sentences:" + "\t" + descriptions.size());
