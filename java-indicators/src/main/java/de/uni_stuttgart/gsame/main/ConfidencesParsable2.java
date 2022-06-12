@@ -26,6 +26,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.regex.Pattern;
+import java.util.StringTokenizer;
 
 
 
@@ -210,8 +212,15 @@ public class ConfidencesParsable2 {
 			  double averageCh = sumCh / probsChunk.length;			  
 			  chunkProbs.add(averageCh);
 
-			  Parser parser = (Parser) ParserFactory.create(model4);
-			  if(sentence.length() > 1){
+			  //#### These lines are needed beacuse no check inside parseLine() for sentences with no tokens			  
+			  Pattern untokenizedParenPattern1 = Pattern.compile("([^ ])([({)}])");
+  			  Pattern untokenizedParenPattern2 = Pattern.compile("([({)}])([^ ])");
+			  sentence = untokenizedParenPattern1.matcher(sentence).replaceAll("$1 $2");
+			  sentence = untokenizedParenPattern2.matcher(sentence).replaceAll("$1 $2");
+			  StringTokenizer str = new StringTokenizer(sentence);
+			  //#### 
+			  if(str.hasMoreTokens()){
+				Parser parser = (Parser) ParserFactory.create(model4);
 				Parse topParses[] = ParserTool.parseLine(sentence, parser, 1);		
 			  
 				for(Parse p : topParses){
