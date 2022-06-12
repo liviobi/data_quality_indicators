@@ -239,28 +239,57 @@ public class ConfidencesParsable {
 		    
 	  
 	  double sumT = 0;
-	  for (double d : tokenizerProbs)sumT += d;
+	  for (double d : tokenizerProbs){
+		if(Double.isNaN(d)){
+			d = 0.0;
+		}
+		sumT += d;
+	  }
 	  double averageT = sumT / tokenizerProbs.size();
-	  System.out.println(Double.toString(sumT));
 	  
 	  double sumPOS = 0;
-	  for (double d : posProbs) sumPOS += d;
+	  for (Double d : posProbs){
+		if(Double.isNaN(d)){
+			d = 0.0;
+		}
+		sumPOS += d;
+	  } 
 	  double averagePOS = sumPOS / posProbs.size();
 	  
 	  double sumNE = 0;
-	  for (double d : neProbs) sumNE += d;
+	  for (double d : neProbs){
+		if(Double.isNaN(d)){
+			d = 0.0;
+		}
+		sumNE += d;
+	  } 
 	  double averageNE = sumNE / neProbs.size();
 	  
 	  double sumCh = 0;
-	  for (double d : chunkProbs) sumCh += d;
+	  for (double d : chunkProbs){
+		if(Double.isNaN(d)){
+			d = 0.0;
+		}
+		sumCh += d;
+	  } 
 	  double averageCh = sumCh / chunkProbs.size();
 	  
 	  double sumP = 0;
-	  for (double d : parseProbs) sumP += d;
+	  for (double d : parseProbs){
+		if(Double.isNaN(d)){
+			d = 0.0;
+		}
+		sumP += d;
+	  } 
 	  double averageP = sumP / parseProbs.size();
 	  
 	  double sumS = 0;
-	  for (double d : thisPosSequenceProbs) sumS += d;
+	  for (double d : thisPosSequenceProbs){
+		if(Double.isNaN(d)){
+			d = 0.0;
+		}
+		sumS += d;
+	  } 
 	  double averageS = sumS / thisPosSequenceProbs.size();
 
 	  double parsedSenteces = 1 - ((double)numUncompleteParses/descriptions.size());
