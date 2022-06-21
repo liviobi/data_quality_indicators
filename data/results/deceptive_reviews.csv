@@ -1,0 +1,2 @@
+parsable,confidence_tokenizer,confidence_pos,confidence_ner,confidence_chunker,spelling_mistakes,avg_sentence_len,lexical_diversity,recognized_by_pos,acronyms,present_in_dictionary,readability_cli,readability_ari,test_avg_sentence_len,test_ari,test_cli
+97.74624999999997,99.52974999999996,92.95987499999997,99.4236249999997,94.00962499999993,98.9118749999999,77.66361250000001,68.40399999999995,99.99,99.80812500000003,97.80699999999992,70.5605,66.13028750000004,16.31831329268844,8.387375000000002,7.410187500000003
