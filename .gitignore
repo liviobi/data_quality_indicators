@@ -133,3 +133,4 @@ java-indicators/java-indicators.jar
 data/corpora/*
 .vscode/
 graphs
+data/results/test.csv
